@@ -1,6 +1,7 @@
 import React from 'react';
 
 import './components/TodoComponents/Todo.css'
+import './App.css'
 
 import TodoList from './components/TodoComponents/TodoList';
 import TodoForm from './components/TodoComponents/TodoForm';
@@ -24,9 +25,6 @@ class App extends React.Component {
     super();
     this.state ={
       data: data,
-      task: '',
-      id: '',
-      completed: ''
     };
   }
 
@@ -39,9 +37,7 @@ class App extends React.Component {
     };
     this.setState({
       data: [...this.state.data, newTodo],
-      task: '',
-      id: '',
-      completed:''  
+      task: '', 
     });
    };
    
@@ -52,14 +48,37 @@ class App extends React.Component {
     });
    };
 
+   toggleToDo = toDoId => {
+     this.setState({
+       data: this.state.data.map(todo=>{
+         if (toDoId === todo.id) {
+           return {
+             ...todo,
+             completed: !todo.completed
+           };
+         }
+         return todo;
+       })
+     });
+   };
+
+   clearCompleted = e => {
+     e.preventDefault();
+     this.setState ({
+      data: this.state.data.filter(todo => !todo.completed)
+     });
+   };
+
   render() {
     return (
-      <div>
-        <h2>Get Your ToDos... Done</h2>
+      <div className ="container">
+      <div className ="app">
+        <h2>Get Your ToDos... Done!</h2>
         <div className ="todo-list">
         <TodoList
         data={this.state.data}
         id={this.state.id} 
+        toggleToDo ={this.toggleToDo}
         />
         </div>
         <TodoForm
@@ -68,7 +87,9 @@ class App extends React.Component {
         id ={this.state.id}
         handleChanges = {this.handleChanges}
         completed ={this.state.completed}
+        clearCompleted = {this.clearCompleted}
          />
+      </div>
       </div>
     );
   }

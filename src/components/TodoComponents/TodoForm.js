@@ -1,4 +1,5 @@
 import React from 'react';
+import './Todo.css'
 
 const TodoForm = props => {
     return (
@@ -8,7 +9,7 @@ const TodoForm = props => {
         value={props.task}
         name ="task"
         onChange = {props.handleChanges}
-        placeholder = "todo"
+        placeholder = "ToDo..."
         />
         <button type ="submit">Add Todo</button>
         <button type ="submit">Clear Completed</button>

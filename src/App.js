@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './components/TodoComponents/Todo.css'
+
 import TodoList from './components/TodoComponents/TodoList';
 import TodoForm from './components/TodoComponents/TodoForm';
 
@@ -32,28 +34,28 @@ class App extends React.Component {
     e.preventDefault();
     const newTodo = {
       task: this.state.task,
-      id: this.state.id,
-      completed: this.state.completed
+      id: Date.now(),
+      completed: false
     };
     this.setState({
       data: [...this.state.data, newTodo],
       task: '',
       id: '',
-      completed: ''    
+      completed:''  
     });
    };
    
    handleChanges = e => {
-     console.log(e.target.value);
+     console.log(e.target);
     this.setState({
-     [e.target.task]: e.target.value
+     [e.target.name]: e.target.value
     });
    };
 
   render() {
     return (
       <div>
-        <h2>Get Your ToDos Done</h2>
+        <h2>Get Your ToDos... Done</h2>
         <div className ="todo-list">
         <TodoList
         data={this.state.data}

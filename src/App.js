@@ -1,6 +1,7 @@
 import React from 'react';
 
 import './components/TodoComponents/Todo.css'
+import './App.css'
 
 import TodoList from './components/TodoComponents/TodoList';
 import TodoForm from './components/TodoComponents/TodoForm';
@@ -25,8 +26,6 @@ class App extends React.Component {
     this.state ={
       data: data,
       task: '',
-      id: '',
-      completed: ''
     };
   }
 
@@ -39,36 +38,55 @@ class App extends React.Component {
     };
     this.setState({
       data: [...this.state.data, newTodo],
-      task: '',
-      id: '',
-      completed:''  
+      task: '', 
     });
    };
    
    handleChanges = e => {
-     console.log(e.target);
     this.setState({
      [e.target.name]: e.target.value
     });
    };
 
+   toggleToDo = toDoId => {
+     this.setState({
+       data: this.state.data.map(todo=>{
+         if (toDoId === todo.id) {
+           return {
+             ...todo,
+             completed: !todo.completed
+           };
+         }
+         return todo;
+       })
+     });
+   };
+
+   clearCompleted = e => {
+     e.preventDefault();
+     this.setState ({
+      data: this.state.data.filter(todo => !todo.completed)
+     });
+   };
+
   render() {
     return (
-      <div>
-        <h2>Get Your ToDos... Done</h2>
-        <div className ="todo-list">
+      <div className ="container">
+      <div className ="app">
+        <h2>Get Your ToDos... Done!</h2>
+        <div>
         <TodoList
-        data={this.state.data}
-        id={this.state.id} 
+        data={this.state.data} 
+        toggleToDo ={this.toggleToDo}
         />
         </div>
         <TodoForm
         addTodo ={this.addTodo}
         task = {this.state.task}
-        id ={this.state.id}
         handleChanges = {this.handleChanges}
-        completed ={this.state.completed}
+        clearCompleted = {this.clearCompleted}
          />
+      </div>
       </div>
     );
   }

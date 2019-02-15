@@ -25,6 +25,7 @@ class App extends React.Component {
     super();
     this.state ={
       data: data,
+      task: '',
     };
   }
 
@@ -42,7 +43,6 @@ class App extends React.Component {
    };
    
    handleChanges = e => {
-     console.log(e.target);
     this.setState({
      [e.target.name]: e.target.value
     });
@@ -74,19 +74,16 @@ class App extends React.Component {
       <div className ="container">
       <div className ="app">
         <h2>Get Your ToDos... Done!</h2>
-        <div className ="todo-list">
+        <div>
         <TodoList
-        data={this.state.data}
-        id={this.state.id} 
+        data={this.state.data} 
         toggleToDo ={this.toggleToDo}
         />
         </div>
         <TodoForm
         addTodo ={this.addTodo}
         task = {this.state.task}
-        id ={this.state.id}
         handleChanges = {this.handleChanges}
-        completed ={this.state.completed}
         clearCompleted = {this.clearCompleted}
          />
       </div>
